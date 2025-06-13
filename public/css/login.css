@@ -1,0 +1,165 @@
+/* Grid styling */
+body{
+    display: grid; 
+    grid-template-columns: 0.4fr 2.2fr 0.4fr; 
+    grid-template-rows: 0.5fr 4fr 0.5fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "header header header"
+        "left-break-col main right-break-col"
+        "footer footer footer"; 
+}
+
+main{
+    grid-area: main;
+    @media (min-width: 625px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    @media (min-width: 1px) {
+        .fresk-logo{
+            display: none;
+        }
+    }
+    @media (min-height: 650px) and (min-width: 380px)  {
+        .fresk-logo{
+            display: block;
+        }
+    }
+}
+
+.divide-left-col{
+    grid-area: left-break-col;
+}
+
+.divide-right-col{
+    grid-area: right-break-col;
+}
+
+header{
+    grid-area: header;
+}
+
+footer{
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+h1{
+    margin: 0;
+    font-weight: normal;
+    font-size: clamp(1.8rem, 2.5vw, 4rem);
+    color: #FF7535;
+    @supports (background-clip: text) or (-webkit-background-clip: text) {
+        color: transparent;
+        background: linear-gradient(
+            90deg,
+            #FF7535 0%,
+            #5E43FF 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        width: fit-content;
+    }
+    em{
+        font-weight: 800;
+    }
+}
+
+.pin-pad-outer-container{
+    border: solid #B5B5B5 0.3rem;
+    border-radius: 20px;
+    background-color: rgb(192 192 192 / 50%); 
+    padding: 20px 25px;
+    max-width: 670px;
+    margin: 1rem 0rem;
+    @media (min-width: 850px) {
+        border-radius: 30px;
+    }
+}
+
+.pin-pad{
+    --pin-btn-size: clamp(1.5rem, 2.3vw, 4rem);
+    form{
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem;
+                &:hover {
+                    border-radius: 30px;
+                    color: white;
+                    background: #A062A5;
+                }
+                &:active {
+                    border-radius: 30px;
+                    background: #fab1ff;
+                }
+    }
+    .pin-display{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        border: none;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        @media (min-width: 850px) {
+            height: 70px;
+        }
+    }
+    .pin-pad-numbers-box{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0rem;
+            direction: ltr;
+            .pinpad-btn {
+                font-weight: 600;
+                background: none;
+                border: none;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                position: relative;
+                padding: 1.5rem;
+                @supports (font-size: clamp(1.5rem, 2.5vw, 4rem)){
+                    font-size: var(--pin-btn-size);
+                }
+                &:last-child{ /* Removing final styles from last style so it doesn't goof up the grid*/
+                    padding: 0;
+                }
+                &:hover {
+                    border-radius: 30px;
+                    color: white;
+                    background: #A062A5;
+                }
+                &:active {
+                    border-radius: 30px;
+                    background: #fab1ff;
+                }
+            }
+        @media (min-width: 400px) {
+            gap: 1rem;
+        }
+        @media (min-width: 700px) {
+            gap: 1.7rem;
+        }
+    }
+}
+
+/* Circle on login that's positioned top right*/
+.fresk-circle-dec{
+    position: fixed;
+    top: -100px;
+    right: -100px;
+    z-index: -1;
+}

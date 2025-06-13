@@ -1,0 +1,39 @@
+{% render 'partials/head.liquid', title: 'Login Fresk Digital'%}
+<head>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+    <body>
+        <img src="assets/main-fresk-circle.svg" alt="" width="350" height="350" class="fresk-circle-dec">
+        <header></header>
+        <main>
+            <img src="assets/fresk-logo.svg" alt="Fresk Digital Logo" width="135" height="78" class="fresk-logo">
+            <section class="pin-pad-outer-container">
+                <h1 class="gradient-text-fresk">Please login and enter <em>your</em> pin</h1>
+                <div class="pin-pad">
+                    <input type="password" id="pinpad-display" class="pin-display"/> <!-- met java alles hieronder aanzetten en readonly hierop zetten, hidden zetten op pin pad number-->
+                    <div class="pin-pad-numbers-box">
+                        <button class="pinpad-btn" value="1"> 1 </button>
+                        <button class="pinpad-btn" value="2"> 2 </button>
+                        <button class="pinpad-btn" value="3"> 3 </button>
+                        <button class="pinpad-btn" value="4"> 4 </button>
+                        <button class="pinpad-btn" value="5"> 5 </button>
+                        <button class="pinpad-btn" value="6"> 6 </button>
+                        <button class="pinpad-btn" value="7"> 7 </button>
+                        <button class="pinpad-btn" value="8"> 8 </button>
+                        <button class="pinpad-btn" value="9"> 9 </button>
+                        <button class="pinpad-btn" value="del" id="delete-btn"> Del </button>
+                        <button class="pinpad-btn" value="0"> 0 </button>
+                        <form method="POST" action="" data-enhanced="">
+                            <button type="submit" class="pinpad-btn" value="ok" id="submit-btn"> Ok </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <img src="assets/citysprout-logo.svg" alt="Citysprout Logo" width="160" height="45" class="city-sprout-logo">
+        </footer>
+        <div class="divide-right-col"></div>
+        <div class="divide-left-col"></div>
+    </body>
+</html>
