@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const pinPadNumbersBox = document.querySelector('.pin-pad-numbers-box');
     const pinDisplay = document.querySelector('.pin-display');
+    const maxDigits = 4; // Maximum 4
     
     pinDisplay.setAttribute('readonly', 'true');
 
@@ -19,8 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
             pinDisplay.value = '';
         } else if (value === 'ok') {
             return;
-        } else {
+        } else if (pinDisplay.value.length < maxDigits) {
             pinDisplay.value += value;
         }
+
     });
 });
