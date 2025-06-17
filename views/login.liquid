@@ -1,7 +1,5 @@
 {% render 'partials/head.liquid', title: 'Login Fresk Digital'%}
-<head>
-    <link rel="stylesheet" href="/css/login.css">
-</head>
+<link rel="stylesheet" href="/css/login.css">
     <body>
         <img src="assets/main-fresk-circle.svg" alt="" width="350" height="350" class="fresk-circle-dec">
         <header></header>
@@ -10,8 +8,8 @@
             <section class="pin-pad-outer-container">
                 <h1 class="gradient-text-fresk">Please login and enter <em>your</em> pin</h1>
                 <div class="pin-pad">
-                    <input type="password" id="pinpad-display" class="pin-display"/> <!-- met java alles hieronder aanzetten en readonly hierop zetten, hidden zetten op pin pad number-->
-                    <div class="pin-pad-numbers-box">
+                    <input type="password" class="pin-display"/> <!-- met java alles hieronder aanzetten en readonly hierop zetten, hidden zetten op pin pad number-->
+                    <div class="pin-pad-numbers-box" hidden>
                         <button class="pinpad-btn" value="1"> 1 </button>
                         <button class="pinpad-btn" value="2"> 2 </button>
                         <button class="pinpad-btn" value="3"> 3 </button>
@@ -31,9 +29,10 @@
             </section>
         </main>
         <footer>
-            <img src="assets/citysprout-logo.svg" alt="Citysprout Logo" width="160" height="45" class="city-sprout-logo">
+            <img src="assets/citysprout-logo.svg" alt="Citysprout Logo" width="160" height="45" class="fresk-logo">
         </footer>
         <div class="divide-right-col"></div>
         <div class="divide-left-col"></div>
     </body>
+<script src="/scripts/login.js"></script>
 </html>

@@ -96,6 +96,9 @@ h1{
     @media (min-width: 850px) {
         border-radius: 30px;
     }
+    @media (prefers-reduced-transparency: reduce) { /* Nieuw, veranderd opacity bij reduced trans*/
+        background-color: rgb(192 192 192 / 95%); 
+    }
 }
 
 .pin-pad{
@@ -129,7 +132,7 @@ h1{
         }
     }
     .pin-pad-numbers-box{
-            display: grid;
+            /* Javascript adds add display: grid to this for PE*/
             grid-template-columns: repeat(3, 1fr);
             gap: 0rem;
             direction: ltr;
