@@ -118,10 +118,9 @@ h1{
                 }
     }
     .pin-display{
+        text-align: center;
+        font-size: 2rem;
         width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         min-height: 50px;
         border: none;
         border-radius: 10px;
