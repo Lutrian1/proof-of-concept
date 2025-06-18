@@ -20,7 +20,8 @@ app.get('/login', async (req, res) => {
 app.get('/', async (req, res) => {
     try {
         const roleRes = await fetch('https://fdnd-fresk-api.netlify.app/get-role');
-        const { role } = await roleRes.json();
+        const response = await roleRes.json();
+        const role = response.role; 
         
         const contentRes = await fetch(`https://fdnd-fresk-api.netlify.app/get-content-by-role?userRole=${role}`);
         const content = await contentRes.json();
@@ -28,7 +29,7 @@ app.get('/', async (req, res) => {
         res.render('dashboard.liquid', { role, content });
     } catch (error) {
         console.error('API Error:', error);
-        res.status(500).render('error.liquid', { message: 'Failed to load dashboard' });
+        res.status(500).render('500.liquid', { message: 'Failed to load dashboard' });
     }
 });
 
@@ -43,15 +44,16 @@ app.get('/', async (req, res) => {
 app.post('/submit-pin', async (req, res) => {
     try {
         const roleRes = await fetch('https://fdnd-fresk-api.netlify.app/get-role');
-        const { role } = await roleRes.json();
-        
+        const response = await roleRes.json();
+        const role = response.role; 
+
         const contentRes = await fetch(`https://fdnd-fresk-api.netlify.app/get-content-by-role?userRole=${role}`);
         const content = await contentRes.json();
         
         res.redirect('/');
     } catch (error) {
         console.error('API Error:', error);
-        res.status(500).render('error.liquid', { message: 'Failed to load dashboard' });
+        res.status(500).render('500.liquid', { message: 'Failed to load dashboard' });
     }
 });
 // ----------------------------------------------- Server Start -----------------------------------------------//

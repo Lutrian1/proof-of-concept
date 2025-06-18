@@ -1,0 +1,82 @@
+/* -------------- Grid styling on body ---------------------*/
+body{
+    width: 100vw;
+    height: 100vh;
+    display: grid; 
+    grid-template-columns: 0.1fr 2.2fr 0.1fr; 
+    grid-template-rows: 0.2fr 4fr 0.2fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+        "header header header"
+        "left-break-col main right-break-col"
+        "footer footer footer"; 
+    @media (min-width: 1250px) {
+        background: linear-gradient(
+            45deg,
+            #FF7535 0%,
+            #5E43FF 100%
+        ); 
+        .gradient-text-fresk{
+            color: white;
+        }
+    }
+}
+
+/* -------------- Fresk logo and column position on main ---------------------*/
+main{
+    grid-area: main;
+    display: grid;
+    @media (min-width: 625px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    @media (min-width: 1px) {
+        .fresk-logo{
+            display: none;
+        }
+    }
+    @media (min-height: 650px) and (min-width: 380px)  {
+        .fresk-logo{
+            display: block;
+        }
+    }
+}
+
+/* -------------- Grid names ---------------------*/
+.divide-left-col{
+    grid-area: left-break-col;
+}
+
+.divide-right-col{
+    grid-area: right-break-col;
+}
+
+header{
+    grid-area: header;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .display-name{
+        margin: 0.5em 0 0 0;
+        font-size: clamp(1.3rem, 2.5vw, 4rem);
+    }
+    .notification{
+        margin: 0;
+        font-size: 0.8em;
+    }
+}
+
+/* Circle on login that's positioned top right*/
+.fresk-circle-dec{
+    position: fixed;
+    top: -100px;
+    right: -100px;
+    z-index: -1;
+    @media (min-width: 840px) {
+        width: 500px;
+        height: 500px;
+    }
+}

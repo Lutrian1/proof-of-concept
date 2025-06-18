@@ -11,3 +11,12 @@ li {
 a {
     text-decoration: none;
 }
+
+em{
+    font-weight: 800;
+}
+
+strong{
+    font-weight: 700;
+    color: red;
+}

@@ -1,4 +1,4 @@
-/* Grid styling */
+/* -------------- Grid styling on body ---------------------*/
 body{
     width: 100vw;
     height: 100vh;
@@ -22,6 +22,7 @@ body{
     }
 }
 
+/* -------------- Fresk logo and column position on main ---------------------*/
 main{
     grid-area: main;
     @media (min-width: 625px) {
@@ -41,7 +42,7 @@ main{
         }
     }
 }
-
+/* -------------- Grid names ---------------------*/
 .divide-left-col{
     grid-area: left-break-col;
 }
@@ -54,6 +55,7 @@ header{
     grid-area: header;
 }
 
+/* -------------- Footer (or citysprout alignment) ---------------------*/
 footer{
     grid-area: footer;
     display: flex;
@@ -65,6 +67,7 @@ footer{
     margin-bottom: 10px;
 }
 
+/* -------------- Main text with PE in pinpad ---------------------*/
 h1{
     margin: 0;
     font-weight: normal;
@@ -81,11 +84,8 @@ h1{
         -webkit-background-clip: text;
         width: fit-content;
     }
-    em{
-        font-weight: 800;
-    }
 }
-
+/* -------------- Pinpad styling ---------------------*/
 .pin-pad-outer-container{
     border: solid #B5B5B5 0.3rem;
     border-radius: 20px;
