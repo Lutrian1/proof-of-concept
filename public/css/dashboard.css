@@ -26,22 +26,6 @@ body{
 main{
     grid-area: main;
     display: grid;
-    @media (min-width: 625px) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-    @media (min-width: 1px) {
-        .fresk-logo{
-            display: none;
-        }
-    }
-    @media (min-height: 650px) and (min-width: 380px)  {
-        .fresk-logo{
-            display: block;
-        }
-    }
 }
 
 /* -------------- Grid names ---------------------*/
@@ -53,7 +37,7 @@ main{
     grid-area: right-break-col;
 }
 
-header{
+.header-top-col {
     grid-area: header;
     display: flex;
     justify-content: center;

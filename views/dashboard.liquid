@@ -2,21 +2,19 @@
 {% render 'partials/head.liquid', title: pageTitle %}  -->
 
 {% capture pageTitle %}{{ content.commonData.dashboardTitle}}{% endcapture %} 
-{% render 'partials/head.liquid', title: pageTitle %}
+{% render 'partials/head.liquid/', title: pageTitle %}
 
 <link rel="stylesheet" href="/css/dashboard.css">
 
 <body>
 <img src="assets/main-fresk-circle.svg" alt="" width="350" height="350" class="fresk-circle-dec">
-    <header>
+    <header class="header-top-col">
         <p class="display-name">Welcome <em>{{ content.commonData.displayName }}</em></p>
         <p class="notification"> You have <strong>{{ content.commonData.unreadNotificationsCount }}</strong> unread notification(s)</p>
     </header>
     <main>
-        <!-- Pseudo code: 
-                1. Maak een variable 'role' die veranderd met de roleName, hierachter plak je .liquid. Elke partial moet dus worden vernoemd exact naar die role.
-                2. In HTML beschrijf je voor elk specifieke role daarmee die data, waardoor je elke keer wat anders krijgt. 
-        -->
+        {% assign role ='partials/role-data/' | append: content.commonData.roleName | append: ".liquid"%}
+        {% render role, content: content %}
     </main>
      <div class="divide-right-col"></div>
     <div class="divide-left-col"></div>
