@@ -1,78 +1,88 @@
 <!-- {{ content.roleSpecificData.currentMaintenanceSchedules }} -->
-<section class="specific-data-col-1"> 
+<section class="maintenance-schedule-sec"> 
 
 <h2>Current maintenance schedule</h2>
 
-    <article class="specific-data-col-1-inline-col-1">
-
-        <h3>{{ content.roleSpecificData.currentMaintenanceSchedules[0].jobId }}</h3>
-        <p>{{ content.roleSpecificData.currentMaintenanceSchedules[0].systemId }}</p>
-        <h4>{{ content.roleSpecificData.currentMaintenanceSchedules[0].task }}</h4>
+{% for schedule in content.roleSpecificData.currentMaintenanceSchedules %}
+    <article class="maintenance-schedule-sec-inline-col-{% cycle '1', '2' %}">
+        <h3>{{ schedule.jobId }}</h3>
+        <p>{{ schedule.systemId }}</p>
+        <h4>{{ schedule.task }}</h4>
 
         <aside class="status"> 
-            <p>status: <strong>{{ content.roleSpecificData.currentMaintenanceSchedules[0].status }}</strong></p>
-            <p>due on: <strong>{{ content.roleSpecificData.currentMaintenanceSchedules[0].dueDate }}</strong></p>
+            <p>status: <strong>{{ schedule.status }}</strong></p>
+            <p>due on: <strong>{{ schedule.dueDate }}</strong></p>
         </aside>
 
     </article>
-
-    <article class="specific-data-col-1-inline-col-2">
-
-        <h3>{{ content.roleSpecificData.currentMaintenanceSchedules[1].jobId }}</h3>
-        <p>{{ content.roleSpecificData.currentMaintenanceSchedules[1].systemId }}</p>
-        <h4>{{ content.roleSpecificData.currentMaintenanceSchedules[1].task }}</h4>
-
-        <aside class="status"> 
-            <p>status: <strong>{{ content.roleSpecificData.currentMaintenanceSchedules[1].status }}</strong></p>
-            <p>due on: <strong>{{ content.roleSpecificData.currentMaintenanceSchedules[1].dueDate }}</strong></p>
-        </aside>
-
-    </article>
+{% endfor %}
 
 </section>
 
-<section class="specific-data-col-2"> 
+<!-- {{ content.roleSpecificData.assignedRepairJobs }} -->
+
+<section class="repair-jobs-sec"> 
 
 <h2>Assigned repair jobs</h2>
 
-    <article class="specific-data-col-2-inline-col-1">
+{% for repairJob in content.roleSpecificData.assignedRepairJobs %}
+    <article class="repair-jobs-sec-inline-col-{% cycle '1', '2' %}"> <!-- https://shopify.dev/docs/api/liquid/tags/cycle -->
+        <h3>{{ repairJob.jobId }}</h3>
+        <p>{{ repairJob.systemId }}</p>
+        <h4>{{ repairJob.issueReported }}</h4>
 
-        <h3>{{ content.roleSpecificData.assignedRepairJobs[0].jobId }}</h3>
-        <p>{{ content.roleSpecificData.assignedRepairJobs[0].systemId }}</p>
-        <h4>{{ content.roleSpecificData.assignedRepairJobs[0].issueReported }}</h4>
-
-        
         <aside> 
-            <p>Assigned Technician(s): {{ content.roleSpecificData.assignedRepairJobs[0].assignedTechnician }}</p>
-            <p>Needed Parts: <em>{{ content.roleSpecificData.assignedRepairJobs[0].partsNeeded }}</em></p>
+            <p>Assigned Technician(s): {{ repairJob.assignedTechnician }}</p>
+            <p>Needed Parts: <em>{{ repairJob.partsNeeded }}</em></p>
         </aside>
 
         <footer> 
-            <p>status: <strong class="less-strong">{{ content.roleSpecificData.assignedRepairJobs[0].status }}</strong></p>
-            <p>priority: <strong>{{ content.roleSpecificData.assignedRepairJobs[0].priority }}</strong></p>
+            <p>status: <strong class="less-strong">{{ repairJob.status }}</strong></p>
+            <p>priority: <strong>{{ repairJob.priority }}</strong></p>
         </footer>
-
+    
     </article>
-
-    <article class="specific-data-col-2-inline-col-2">
-
-        <h3>{{ content.roleSpecificData.assignedRepairJobs[1].jobId }}</h3>
-        <p>{{ content.roleSpecificData.assignedRepairJobs[1].systemId }}</p>
-        <h4>{{ content.roleSpecificData.assignedRepairJobs[1].issueReported }}</h4>
-
-        <aside> 
-            <p>Assigned Technician(s): {{ content.roleSpecificData.assignedRepairJobs[0].assignedTechnician }}</p>
-            <p>Needed Parts: <em>{{ content.roleSpecificData.assignedRepairJobs[0].partsNeeded }}</em></p>
-        </aside>
-
-        <footer> 
-            <p>status: <strong class="less-strong">{{ content.roleSpecificData.assignedRepairJobs[1].status }}</strong></p>
-            <p>priority: <strong>{{ content.roleSpecificData.assignedRepairJobs[1].priority }}</strong></p>
-        </footer>
-
-    </article>
+{% endfor %}
 
 </section>
 
-<section class="specific-data-col-3"> {{ content.roleSpecificData.systemDiagnosticData }}</section>
-<section class="specific-data-col-4"> {{ content.roleSpecificData.technicalManualsLinks }}</section>
+<!-- {{ content.roleSpecificData.systemDiagnosticData }} -->
+
+<section class="system-diagnostics-sec"> 
+
+<h2>System Diagnostics</h2>
+
+{% for systemDiagnosticData in content.roleSpecificData.systemDiagnosticData %}
+    <!-- Naam string dus bijv: "VF01-a ETC" -->
+    {% assign id = systemDiagnosticData[0] %} 
+    <!-- Data daarin -->
+    {% assign data = systemDiagnosticData[1] %} 
+
+    <article class="diagnostic-item">
+        <h3>{{ id }}</h3>
+        <p><strong>Status:</strong> {{ data.status }}</p>
+        <p><strong>Last Check:</strong> {{ data.lastCheck }}</p>
+        <p><strong>Issues:</strong> {{ data.issues }}</p>
+        
+        {% if data.details %}  
+            <p><strong>Details:</strong> {{ data.details }}</p>
+        {% endif %}
+    </article>
+
+{% endfor %}
+
+</section>
+
+<section class="specific-data-sec">
+
+    <ul class="links-mechanic-ul">
+
+    {% for manual in content.roleSpecificData.technicalManualsLinks %}
+        <li class="manual-item">
+        <a href="{{ manual.url }}">{{ manual.label }}</a>
+        </li>
+    {% endfor %}
+
+    </ul>
+
+</section>

@@ -1,4 +1,63 @@
-<section class="specific-data-col-1">{{ content.roleSpecificData.activeCropCycles }}</section>
-<section class="specific-data-col-2">{{ content.roleSpecificData.environmentalAlerts }}</section>
-<section class="specific-data-col-3">{{ content.roleSpecificData.upcomingTasks }}</section>
-<section class="specific-data-col-4">{{ content.roleSpecificData.quickLinks }}</section>
+<section class="crop-cycle-sec">
+
+    {% for crop in content.roleSpecificData.activeCropCycles %}
+
+        <article class="crop-cycle-sec-inline-col-{% cycle '1', '2' %}">
+
+            <h3>{{ crop.cropName }} ({{ crop.systemId }})</h3>
+            <p><strong>Cycle ID:</strong> {{ crop.cycleId }}</p>
+            <p><strong>Stage:</strong> {{ crop.currentStage }} (Day {{ crop.daysInStage }})</p>
+            <p><strong>Health:</strong> {{ crop.healthStatus }}</p>
+            <p><strong>Expected Harvest:</strong> {{ crop.expectedHarvestDate }}</p>
+
+        </article>
+
+    {% endfor %}
+
+</section>
+
+<section class="alert-col-sec">
+
+    {% for alert in content.roleSpecificData.environmentalAlerts %}
+
+	<article class="alert-col-sec-inline-col-{% cycle '1', '2' %}">
+
+		<h3>{{ alert.parameter }} Alert ({{ alert.systemId }})</h3>
+		<p><strong>Status:</strong> {{ alert.status }} ({{ alert.currentValue }})</p>
+		<p><strong>Severity:</strong> {{ alert.severity }}</p>
+		<p><strong>Action:</strong> {{ alert.recommendation }}</p>
+
+	</article>
+
+    {% endfor %}
+
+</section>
+
+<section class="upcoming-task-sec">
+
+    {% for task in content.roleSpecificData.upcomingTasks %}
+
+	<article class="task-col-sec-inline-col-{% cycle '1', '2' %}">
+		<h3>{{ task.description }}</h3>
+		<p><strong>Due:</strong> {{ task.dueDate }}</p>
+		<p><strong>Priority:</strong> {{ task.priority }}</p>
+		<p><small>Task ID: {{ task.taskId }}</small></p>
+	</article>
+
+    {% endfor %}
+
+</section>
+
+<section class="quick-links-sec">
+
+    <ul class="quick-links-grower">
+
+	{% for link in content.roleSpecificData.quickLinks %}
+		<li>
+			<a href="{{ link.url }}">{{ link.label }}</a>
+		</li>
+	{% endfor %}
+
+    </ul>
+
+</section>

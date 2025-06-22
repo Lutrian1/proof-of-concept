@@ -1,4 +1,102 @@
-<section class="specific-data-col-1">{{ content.roleSpecificData.keyPerformanceIndicators }}</section>
-<section class="specific-data-col-2">{{ content.roleSpecificData.financialSummary }}</section>
-<section class="specific-data-col-3">{{ content.roleSpecificData.researchAndDevelopmentProjects }}</section>
-<section class="specific-data-col-4">{{ content.roleSpecificData.strategicGoals }}</section>
+<!-- KPI Dashboard: gegenereerd met AI, tijd te besparen. -->
+<section class="key-performance-indicators-sec">
+	<h2>Company Performance</h2>
+	<article class="key-performance-indicators-single-col">
+		<div class="kpi-grid">
+			{% assign kpis = content.roleSpecificData.keyPerformanceIndicators %}
+			{% for kpi in kpis %}
+				<div class="kpi-card trend-{{ kpi[1].trend }}">
+					<h4>{{ kpi[0] | replace: 'YTD', '' | replace: 'Rate', '' }}</h4>
+					<p class="kpi-value">
+						{% if kpi[1].unit contains 'USD' %}${% endif %}
+						{{ kpi[1].value }}
+						{% unless kpi[1].unit contains 'USD' %}{{ kpi[1].unit }}{% endunless %}
+					</p>
+					{% if kpi[1].comparison %}
+						<p class="kpi-trend">{{ kpi[1].comparison }}</p>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</article>
+</section>
+
+<!-- Financial Overview -->
+<section class="financial-summary-sec">
+	<h2>Financial Summary</h2>
+	{% assign finances = content.roleSpecificData.financialSummary %}
+	<div class="financial-grid">
+		<article class="financial-summary-col-2-inline-col-1">
+			<h3>{{ finances.currentMonth }}</h3>
+			<div class="financial-cards">
+				<div class="financial-card revenue">
+					<h4>Revenue</h4>
+					<p class="amount">${{ finances.revenue.value | number }}</p>
+					<p class="change {% if finances.previousMonthComparison.revenueChangePercentage >= 0 %}positive{% else %}negative{% endif %}">
+						{{ finances.previousMonthComparison.revenueChangePercentage }}% vs last month
+					</p>
+				</div>
+			</div>
+		</article>
+		
+		<article class="financial-summary-col-2-inline-col-2">
+			<div class="financial-cards">
+				<div class="financial-card expenses">
+					<h4>Expenses</h4>
+					<p class="amount">${{ finances.expenses.value | number }}</p>
+					<p class="change {% if finances.previousMonthComparison.expenseChangePercentage <= 0 %}positive{% else %}negative{% endif %}">
+						{{ finances.previousMonthComparison.expenseChangePercentage }}% vs last month
+					</p>
+				</div>
+				
+				<div class="financial-card profit highlight">
+					<h4>Net Profit</h4>
+					<p class="amount">${{ finances.netProfit.value | number }}</p>
+					<p class="change positive">
+						{{ finances.previousMonthComparison.profitChangePercentage }}% vs last month
+					</p>
+				</div>
+			</div>
+		</article>
+	</div>
+</section>
+
+<!-- R&D Projects -->
+<section class="research-and-development-projects-sec">
+	<h2>Innovation Pipeline</h2>
+	{% for project in content.roleSpecificData.researchAndDevelopmentProjects %}
+		<article class="research-and-development-projects-col-2-inline-col-{% cycle '1', '2' %} status-{{ project.status | slugify }}">
+			<h3>{{ project.projectName }}</h3>
+			<div class="project-meta">
+				<p><strong>ID:</strong> {{ project.projectId }}</p>
+				<p><strong>Lead:</strong> {{ project.lead }}</p>
+			</div>
+			<div class="project-status">
+				<p><strong>Status:</strong> {{ project.status }}</p>
+				<p><strong>Next:</strong> {{ project.nextMilestone }}</p>
+			</div>
+			<div class="project-finance">
+				<p><strong>Budget:</strong> ${{ project.budgetAllocated | number }}</p>
+				<p><strong>Spent:</strong> ${{ project.spentToDate | number }}</p>
+				{% if project.expectedCompletion != "N/A" %}
+					<p><strong>ETA:</strong> {{ project.expectedCompletion }}</p>
+				{% endif %}
+			</div>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Strategic Goals -->
+<section class="strategic-goals-sec">
+	<h2>Strategic Objectives</h2>
+	{% for goal in content.roleSpecificData.strategicGoals %}
+		<article class="strategic-goals-single-col status-{{ goal.status | slugify }}">
+			<h3>{{ goal.description }}</h3>
+			<div class="goal-progress">
+				<p><strong>Status:</strong> <span class="status-badge">{{ goal.status }}</span></p>
+				<p><strong>Progress:</strong> {{ goal.currentValue }} → {{ goal.targetValue }}</p>
+			</div>
+			<p class="metric"><small>Tracking: {{ goal.keyMetric }}</small></p>
+		</article>
+	{% endfor %}
+</section>

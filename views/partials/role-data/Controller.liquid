@@ -1,4 +1,89 @@
-<section class="specific-data-col-1">{{ content.roleSpecificData.activeProjectTimelines }}</section>
-<section class="specific-data-col-2">{{ content.roleSpecificData.projectBudgetVsActuals }}</section>
-<section class="specific-data-col-3">{{ content.roleSpecificData.resourceAllocationOverview }}</section>
-<section class="specific-data-col-4">{{ content.roleSpecificData.efficiencyMetrics }}</section>
+<!-- Active Projects -->
+<section class="active-project-timelines-sec">
+	<h2>Current Projects</h2>
+	{% for project in content.roleSpecificData.activeProjectTimelines %}
+		<article class="active-project-timelines-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>{{ project.clientName }}</h3>
+			<div class="project-meta">
+				<p><strong>ID:</strong> {{ project.projectId }}</p>
+				<p><strong>Type:</strong> {{ project.systemType }}</p>
+			</div>
+			<div class="project-status">
+				<p><strong>Progress:</strong> 
+					<span class="progress-bar" style="width: {{ project.percentageComplete }}%"></span>
+					{{ project.percentageComplete }}%
+				</p>
+				<p><strong>Phase:</strong> {{ project.currentStatus }}</p>
+			</div>
+			<div class="project-team">
+				<p><strong>Manager:</strong> {{ project.projectManager }}</p>
+				<p><strong>Timeline:</strong> {{ project.startDate }} → {{ project.expectedEndDate }}</p>
+			</div>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Budget Tracking -->
+<section class="project-budget-vs-actuals-sec">
+	<h2>Financial Status</h2>
+	{% for budget in content.roleSpecificData.projectBudgetVsActuals %}
+		<article class="project-budget-vs-actuals-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>{{ budget.projectName }}</h3>
+			<div class="budget-figures">
+				<p><strong>Budget:</strong> ${{ budget.totalBudget | number }}</p>
+				<p><strong>Spent:</strong> ${{ budget.actualSpend | number }}</p>
+			</div>
+			<div class="variance variance-{% if budget.variance >= 0 %}positive{% else %}negative{% endif %}">
+				<p>
+					<strong>Variance:</strong> 
+					${{ budget.variance | abs | number }} 
+					({{ budget.variancePercentage | abs }}%)
+				</p>
+			</div>
+			<p class="status-alert"><strong>Status:</strong> {{ budget.statusAlert }}</p>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Resources & Metrics -->
+<div class="controller-bottom-grid">
+	<section class="resource-allocation-overview-sec">
+		<h2>Team Allocation</h2>
+		<article class="resource-allocation-overview-single-col">
+			<div class="availability-grid">
+				<p><strong>Total:</strong> {{ content.roleSpecificData.resourceAllocationOverview.totalTechnicians }}</p>
+				<p><strong>Available:</strong> {{ content.roleSpecificData.resourceAllocationOverview.availableTechnicians }}</p>
+				<p><strong>On Site:</strong> {{ content.roleSpecificData.resourceAllocationOverview.techniciansOnSite }}</p>
+				<p><strong>On Leave:</strong> {{ content.roleSpecificData.resourceAllocationOverview.techniciansOnLeave }}</p>
+			</div>
+			
+			<h3>Upcoming Needs</h3>
+			<ul class="upcoming-needs">
+				{% for project in content.roleSpecificData.resourceAllocationOverview.upcomingProjectsNeedingAllocation %}
+					<li>
+						<strong>{{ project.projectName }}</strong>:
+						{{ project.requiredTechnicians }} techs by {{ project.startDate }}
+					</li>
+				{% endfor %}
+			</ul>
+		</article>
+	</section>
+
+	<section class="efficiency-metrics-sec">
+		<h2>Performance</h2>
+		<article class="efficiency-metrics-single-col">
+			<div class="metric">
+				<p class="metric-value">{{ content.roleSpecificData.efficiencyMetrics.averageInstallationTimeDays }}</p>
+				<p class="metric-label">Avg. Installation Days</p>
+			</div>
+			<div class="metric">
+				<p class="metric-value">{{ content.roleSpecificData.efficiencyMetrics.onTimeCompletionRatePercentage }}%</p>
+				<p class="metric-label">On-Time Completion</p>
+			</div>
+			<div class="metric">
+				<p class="metric-value">{{ content.roleSpecificData.efficiencyMetrics.firstTimeFixRatePercentage }}%</p>
+				<p class="metric-label">First-Time Fix Rate</p>
+			</div>
+		</article>
+	</section>
+</div>

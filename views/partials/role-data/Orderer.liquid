@@ -1,3 +1,60 @@
-<section class="specific-data-col-1">{{ content.roleSpecificData.lowInventoryAlerts }}</section>
-<section class="specific-data-col-2">{{ content.roleSpecificData.supplierList }}</section>
-<section class="specific-data-col-3">{{ content.roleSpecificData.activePurchaseOrders }}</section>
+<!-- Low Inventory Alerts -->
+<section class="low-inventory-alerts-sec">
+	<h2>Low Stock Items</h2>
+	{% for item in content.roleSpecificData.lowInventoryAlerts %}
+		<article class="low-inventory-alerts-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>{{ item.itemName }}</h3>
+			<p><strong>ID:</strong> {{ item.itemId }}</p>
+			<p class="stock-warning">
+				<strong>Stock:</strong> 
+				<span class="highlight">{{ item.currentStock }} {{ item.unit }}</span> 
+				(Reorder at {{ item.reorderLevel }})
+			</p>
+			<p><strong>Last Ordered:</strong> {{ item.lastOrderedDate }}</p>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Supplier Contacts -->
+<section class="supplier-list-sec">
+	<h2>Approved Suppliers</h2>
+	{% for supplier in content.roleSpecificData.supplierList %}
+		<article class="supplier-list-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>{{ supplier.supplierName }}</h3>
+			<div class="contact-info">
+				<p><strong>Contact:</strong> {{ supplier.contactPerson }}</p>
+				<p><strong>Email:</strong> <a href="mailto:{{ supplier.contactEmail }}">{{ supplier.contactEmail }}</a></p>
+				<p><strong>Phone:</strong> {{ supplier.contactPhone }}</p>
+			</div>
+			<div class="items-supplied">
+				<p><strong>Provides:</strong></p>
+				<ul>
+					{% for item in supplier.itemsSupplied %}
+						<li>{{ item }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Active Purchase Orders -->
+<section class="active-purchase-orders-sec">
+	<h2>Current Orders</h2>
+	{% for order in content.roleSpecificData.activePurchaseOrders %}
+		<article class="active-purchase-orders-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>PO# {{ order.poId }}</h3>
+			<p><strong>Supplier:</strong> {{ order.supplierName }}</p>
+			<ul class="order-items">
+				{% for item in order.items %}
+					<li>{{ item.quantity }} × {{ item.itemName }}</li>
+				{% endfor %}
+			</ul>
+			<div class="order-dates">
+				<p><strong>Ordered:</strong> {{ order.orderDate }}</p>
+				<p><strong>Expected:</strong> {{ order.expectedDeliveryDate }}</p>
+			</div>
+			<p class="status-{{ order.status | downcase }}"><strong>Status:</strong> {{ order.status }}</p>
+		</article>
+	{% endfor %}
+</section>

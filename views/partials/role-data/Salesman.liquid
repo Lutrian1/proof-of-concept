@@ -1,4 +1,57 @@
-<section class="specific-data-col-1">{{ content.roleSpecificData.productCatalogs }}</section>
-<section class="specific-data-col-2">{{ content.roleSpecificData.currentSalesLeads }}</section>
-<section class="specific-data-col-3">{{ content.roleSpecificData.salesTargets }}</section>
-<section class="specific-data-col-4">{{ content.roleSpecificData.commissionStructure }}</section>
+<!-- Product Catalogs: Dit is gevraagd aan AI om in te vullen zoals ik deed bij de mechanic en grower -->
+<section class="product-catalogs-sec">
+	<h2>Available Products</h2>
+	{% for product in content.roleSpecificData.productCatalogs %}
+		<article class="product-catalogs-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>{{ product.productName }}</h3>
+			<p><strong>SKU:</strong> {{ product.SKU }}</p>
+			<p><strong>Price:</strong> ${{ product.price | number }}</p>
+			<p>{{ product.description }}</p>
+			<ul>
+				{% for feature in product.features %}
+					<li>{{ feature }}</li>
+				{% endfor %}
+			</ul>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Sales Leads -->
+<section class="current-sales-leads-sec">
+	<h2>Active Leads</h2>
+	{% for lead in content.roleSpecificData.currentSalesLeads %}
+		<article class="current-sales-leads-col-2-inline-col-{% cycle '1', '2' %}">
+			<h3>{{ lead.clientName }}</h3>
+			<p><strong>Value:</strong> ${{ lead.potentialValue | number }}</p>
+			<p><strong>Status:</strong> {{ lead.status }}</p>
+			<p><strong>Next:</strong> {{ lead.nextAction }}</p>
+			<p><a href="mailto:{{ lead.contactEmail }}">Email Contact</a></p>
+		</article>
+	{% endfor %}
+</section>
+
+<!-- Targets & Commission -->
+<div class="sales-performance-grid">
+	<section class="sales-targets-sec">
+		<h2>Targets</h2>
+		<article class="sales-targets-single-col">
+			<p><strong>Monthly:</strong> ${{ content.roleSpecificData.salesTargets.monthlyTarget | number }}</p>
+			<p><strong>YTD:</strong> ${{ content.roleSpecificData.salesTargets.ytdActual | number }}</p>
+			<p><strong>Progress:</strong> {{ content.roleSpecificData.salesTargets.targetAchievedPercentage }}%</p>
+			<p>{{ content.roleSpecificData.salesTargets.nextMilestone }}</p>
+		</article>
+	</section>
+
+	<section class="commission-structure-sec">
+		<h2>Commission</h2>
+		<article class="commission-structure-single-col">
+			<p><strong>Base:</strong> ${{ content.roleSpecificData.commissionStructure.baseSalary | number }}</p>
+			<ul>
+				<li>{{ content.roleSpecificData.commissionStructure.commissionRateTier1 }}</li>
+				<li>{{ content.roleSpecificData.commissionStructure.commissionRateTier2 }}</li>
+				<li>{{ content.roleSpecificData.commissionStructure.commissionRateTier3 }}</li>
+			</ul>
+			<p>{{ content.roleSpecificData.commissionStructure.bonus }}</p>
+		</article>
+	</section>
+</div>

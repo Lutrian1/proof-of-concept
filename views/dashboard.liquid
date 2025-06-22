@@ -13,7 +13,9 @@
         <p class="notification"> You have <strong>{{ content.commonData.unreadNotificationsCount }}</strong> unread notification(s)</p>
     </header>
     <main>
+        <!-- Ik render hier eigenlijk elke keer de aparte role-data partials. De namen binnen role-data bijv: "mechanic" moet dan ook kloppen met de .roleName. Soort van cheaten-->
         {% assign role ='partials/role-data/' | append: content.commonData.roleName | append: ".liquid"%}
+        <!-- Append voor spaties en het 'plakken' van de rest aan elkaar-->
         {% render role, content: content %}
     </main>
      <div class="divide-right-col"></div>
